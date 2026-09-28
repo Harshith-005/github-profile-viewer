@@ -1,0 +1,30 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  application-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "checkout repository"
+        uses: actions/checkout@v4
+      
+      - name: "Install node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      
+      - name: "Install dependencies"
+        run: npm ci 
+      
+      - name: "Run Tests"
+        run: npm test
+
+      - name: "Build Application"
+        run: npm run build
+
+      
